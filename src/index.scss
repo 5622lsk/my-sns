@@ -5,8 +5,9 @@ $primaryColor: #60a5fa;
 $grayText: #9ca3af;
 $activeBorder: #3b82f6;
 $danger: #dc2626;
-$danger-hover: #bb3c3c;
+$danger-hover: #b92121;
 $gray: #6b7280;
+$grayDark: #484d56;
 $activeBg: #3c495f5f;
  
 
@@ -43,6 +44,38 @@ body {
   cursor: pointer;
 }
 
+//footer
+.footer{
+  position: fixed; //메뉴바 화면에 고정시킴
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 10;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: transparent;
+  color: $white;
+
+  &__grid{
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    button{
+      border: none;
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      align-items: center;
+      font-size: 15px;
+      padding: 16px 0px;
+      backdrop-filter: blur(10px);
+    }
+  }
+
+}
+
+
 //home 레이아웃
 .home {
   &__title{
@@ -55,6 +88,7 @@ body {
     width: 100%;
     display: grid;
     grid-template-columns: repeat(2, minmax(0,1fr));
+    background-color: transparent;
   }
 
   &__tab{
@@ -105,6 +139,12 @@ body {
       flex-direction: column;
       justify-content: center;
       cursor:pointer;
+
+      &-icon{
+        width: 30px;
+        height: 30px;
+        align-items: center;
+      }
     }
 
     .hidden {
@@ -117,4 +157,98 @@ body {
     padding: 0.5rem 1rem;
     background-color: $primaryColor;
   }
+}
+
+// post 레이아읏
+.post {
+  padding-bottom: 40px;
+
+  &__flex{
+    display: flex;
+    gap: 4px;
+    align-items:center;
+  }
+
+  &__email,
+  &__createdAt {
+    font-size: 12px;
+    color:$grayText;
+  }
+
+  &__box{
+    padding: 10px 0px;
+    border-bottom: $border;
+
+      a {
+        text-decoration: none;
+      }
+    
+      &-profile {
+        text-decoration: none;
+        padding: 0 10px;
+
+        &-img, &-icon {
+          width: 40px;
+          height: 40px;
+          border-radius:50%;
+          margin-right:10px;
+        }
+      }
+
+      &-content{
+        display: block;
+        font-weight: 500;
+        padding: 16px 4px;
+      }
+
+      &-footer{
+        padding:0 16px;
+        margin-top: 10px;
+        padding-bottom: 10px;
+        font-size:14px;
+        display: flex;
+        gap: 8px;
+        flex-direction: row-reverse;
+        // border-bottom: $border;
+
+        button {
+          @extend.button;
+
+          &.post__delete{
+            background-color: $danger;
+
+            &:hover{
+              background-color: $danger-hover;
+            }
+          }
+
+          &.post__edit{
+            background-color: $gray;
+
+            a{
+              background-color: transparent;
+
+              &:hover{
+                background-color: $grayDark;
+              }
+            }
+
+            &:hover{
+              background-color: $grayDark;
+            }
+          }
+
+          &.post__like,
+          &.post__comment{
+            @extend .post__flex;
+
+            &:hover{
+              color: $gray;
+            }
+          }
+        }
+      }
+  }
+
+
 }
