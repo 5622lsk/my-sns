@@ -4,6 +4,9 @@ import { BsHouse } from "react-icons/bs";
 import { FaRegUserCircle } from "react-icons/fa";
 import { MdOutlineLogin, MdOutlineLogout } from "react-icons/md";
 import { useNavigate } from 'react-router-dom'
+import { getAuth, signOut } from "firebase/auth";
+import { app } from 'firebaseApp';
+import { toast } from 'react-toastify';
 
 
 export default function MenuList() {
@@ -26,7 +29,13 @@ export default function MenuList() {
           <MdOutlineLogin />
           Login
         </button> 
-        ) : (<button type="button" onClick={() => navigate("/logout")}>
+        ) : (<button
+          type="button"
+          onClick={async() => {
+          const auth = getAuth(app);
+          await signOut(auth);
+          toast.success("로그아웃 됐습니다.")
+        }}>
         <MdOutlineLogout />
           Logout
         </button> )
