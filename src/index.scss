@@ -44,7 +44,7 @@ body {
   cursor: pointer;
 }
 
-//footer
+//MenuList
 .footer{
   position: fixed; //메뉴바 화면에 고정시킴
   right: 0;
@@ -54,7 +54,7 @@ body {
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
-  background-color: transparent;
+  background: transparent;
   color: $white;
 
   &__grid{
@@ -69,7 +69,7 @@ body {
       align-items: center;
       font-size: 15px;
       padding: 16px 0px;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(1px);
     }
   }
 
@@ -315,5 +315,9 @@ body {
     &:hover{
       color: $gray;
     }
+  }
+
+  &__error {
+    color: red;
   }
 }
