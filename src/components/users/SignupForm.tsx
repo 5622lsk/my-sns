@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, GithubAuthProvider } from "firebase/auth";
 import { app } from 'firebaseApp';
 import { toast } from 'react-toastify';
 
@@ -18,7 +18,7 @@ export default function SignupForm() {
             const auth = getAuth(app);
             await createUserWithEmailAndPassword(auth, email, password);
             navigate("/");
-            toast.success("회원가입이 완료됐습니다.")
+            toast.success("성공적으로 회원가입이 완료됐습니다.")
         } catch (error: any){
             toast.error(error?.code);
         };
@@ -52,14 +52,45 @@ export default function SignupForm() {
         if (name === "password_confirmation"){
             setPasswordConfirmation(value);
 
-            if(value?.length < 8){
+            if(value?.length < 8){ 
                 setError("비밀번호는 8자리 이상 입략해주세요.");
-            } else if (value !== passwordConfirmation){
+            } else if (value !== password){
                 setError("비밀번호와 비밀번호 확인값이 다릅니다.")
             } else {
                 setError("");
             }
         }
+    };
+
+    const onClickSocialLogin = async (e: any) => {
+        const {
+          target: {name},
+    } = e;
+
+    let provider;
+    const auth = getAuth(app);
+
+    if (name === "google"){
+        provider = new GoogleAuthProvider();
+    }
+
+    if (name === "github"){
+        provider = new GithubAuthProvider();
+    }
+
+    await signInWithPopup(
+        auth,
+        provider as GithubAuthProvider | GoogleAuthProvider
+        )
+        .then((result) => {
+            console.log(result);
+            navigate("/");
+            toast.success("로그인 됐습니다.");
+        }).catch((error) => {
+            console.log(error);
+            const errorMessege = error?.message;
+            toast?.error(errorMessege);
+        });
     };
 
   return (
@@ -79,7 +110,7 @@ export default function SignupForm() {
         <div className='form__block'>
             <label htmlFor="password">비밀번호</label>
             <input
-              type="text"
+              type="password"
               name="password"
               id="password"
               value={password}
@@ -90,7 +121,7 @@ export default function SignupForm() {
         <div className='form__block'>
             <label htmlFor="password_confirmation">비밀번호 확인</label>
             <input
-              type="text"
+              type="password"
               name="password_confirmation"
               id="password_confirmation"
               value={passwordConfirmation}
@@ -117,6 +148,26 @@ export default function SignupForm() {
               disabled={error?.length > 0}
             >
             회원가입
+            </button>
+        </div>
+        <div className='form__block'>
+            <button
+              type="button"
+              name='google'
+              className='form__btn--google'
+              onClick={onClickSocialLogin}
+            >
+            Sign up with Google
+            </button>
+        </div>
+        <div className='form__block'>
+            <button
+              type="button"
+              name='github'
+              className='form__btn--github'
+              onClick={onClickSocialLogin}
+            >
+            Sign up with GitHub
             </button>
         </div>
     </form>
