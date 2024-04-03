@@ -44,6 +44,19 @@ body {
   cursor: pointer;
 }
 
+.transparent {
+  background-color: transparent;
+  backdrop-filter: blur(10px);
+}
+
+.sticky {
+  width: 100%;
+  position: sticky;
+  max-width: 600px;
+  margin: 0 auto;
+  top: 0;
+}
+
 //MenuList
 .footer{
   position: fixed; //메뉴바 화면에 고정시킴
@@ -78,7 +91,13 @@ body {
 
 //home 레이아웃
 .home {
+  &__top {
+    @extend .transparent;
+    @extend .sticky;
+  }
   &__title{
+    background-color: transparent;
+    width: 100%;
     padding: 16px;
     font-weight: 700;
     font-size: 20px;
@@ -92,6 +111,7 @@ body {
   }
 
   &__tab{
+    background-color: transparent;
     text-align: center;
     font-weight: 500;
     padding: 16px;
