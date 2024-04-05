@@ -1,73 +1,68 @@
-import React, { useContext, useState } from 'react';
-import { FiImage } from "react-icons/fi";
-import { collection, addDoc } from "firebase/firestore"; 
-import { db } from 'firebaseApp';
-import { toast } from 'react-toastify';
-import AuthContext from 'context/AuthContext';
+import { useContext, useEffect, useState } from "react";
+import PostForm from "components/posts/PostForm";
+import PostBox from "components/posts/PostBox";
 
+import {
+  collection,
+  query,
+  where,
+  onSnapshot,
+  orderBy,
+} from "firebase/firestore";
+import AuthContext from "context/AuthContext";
+import { db } from "firebaseApp";
 
-export default function PostForm() {
-  const [content, setContent] = useState<string>("")
-  const {user} = useContext(AuthContext);
-  const handleFileUpload = () => {};
+export interface PostProps {
+  id: string;
+  email: string;
+  content: string;
+  createdAt: string;
+  uid: string;
+  profileUrl?: string;
+  likes?: string[];
+  likeCount?: number;
+  comments?: any;
+}
 
-  const onSubmit = async(e: any) => {
-    e.preventDefault(); //폼이 일단 넘어가지 않도록
+export default function HomePage() {
+  const [posts, setPosts] = useState<PostProps[]>([]);
+  const { user } = useContext(AuthContext);
 
-    try{
-      await addDoc(collection(db, 'posts'),{
-        content: content,
-        cretedAt: new Date()?.toLocaleDateString("ko", {
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-        }),
-        uid: user?.uid,
-        email: user?.email,
-      })
-      setContent("");//성공적으로 전송되면 콘텐츠 지움
-      toast.success("게시글을 생성했습니다");
-    } catch(e: any){
-      console.log(e);
+  useEffect(() => {
+    if (user) {
+      let postsRef = collection(db, "posts");
+      let postsQuery = query(postsRef, orderBy("createdAt", "desc"));
+
+      onSnapshot(postsQuery, (snapShot) => {
+        let dataObj = snapShot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc?.id,
+        }));
+        setPosts(dataObj as PostProps[]);
+      });
     }
-  };
-
-  const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const {
-      target: {name, value}
-    } = e;
-
-    if (name === "content"){
-      setContent(value);
-    }
-  };
+  }, [user]);
 
   return (
-    <form className='post-form' onSubmit={onSubmit}>
-      <textarea 
-        className="post-form__textarea"
-        name="content"
-        id="content"
-        placeholder='write your story'
-        onChange={onChange}
-        required
-      />
-      <div className="post-form__submit-area">
-        <label htmlFor='file-input' className="post-form__file">
-          <FiImage className='post-form__file-icon' />
-        </label>
-        <input 
-          type="file"
-          name="file-input"
-          accept="image/*"
-          onChange={handleFileUpload}
-          className='hidden'
-        />
-        <input
-          type="submit" 
-          value="post" 
-          className="post-form__submit-btn" />
+    <div className="home">
+      <div className="home__top">
+        <div className="home__title">Home</div>
+        <div className="home__tabs">
+          <div className="home__tab home__tab--active">For You</div>
+          <div className="home__tab">Following</div>
+        </div>
       </div>
-    </form>
+
+      <PostForm />
+      <div className="post">
+        {posts?.length > 0 ? (
+          posts?.map((post) => <PostBox post={post} key={post.id} />)
+        ) : (
+          <div className="post__no-posts">
+            <div className="post__text">게시글이 없습니다.</div>
+          </div>
+        )}
+      </div>
+    </div>
   );
 }
