@@ -1,46 +1,47 @@
-import AuthContext from 'context/AuthContext';
-import React, { useContext } from 'react'
 import { BsHouse } from "react-icons/bs";
-import { FaRegUserCircle } from "react-icons/fa";
-import { MdOutlineLogin, MdOutlineLogout } from "react-icons/md";
-import { useNavigate } from 'react-router-dom'
+import { BiUserCircle } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
+import { MdLogout, MdLogin } from "react-icons/md";
+import { useContext } from "react";
+import AuthContext from "context/AuthContext";
 import { getAuth, signOut } from "firebase/auth";
-import { app } from 'firebaseApp';
-import { toast } from 'react-toastify';
+import { app } from "firebaseApp";
 
+import { toast } from "react-toastify";
 
 export default function MenuList() {
-  const {user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
-  console.log(user);
   return (
-    <div className='footer'>
-      <div className='footer__grid'>
+    <div className="footer">
+      <div className="footer__grid">
         <button type="button" onClick={() => navigate("/")}>
           <BsHouse />
           Home
         </button>
         <button type="button" onClick={() => navigate("/profile")}>
-          <FaRegUserCircle />
+          <BiUserCircle />
           Profile
-        </button> 
+        </button>
         {user === null ? (
           <button type="button" onClick={() => navigate("/users/login")}>
-          <MdOutlineLogin />
-          Login
-        </button> 
-        ) : (<button
-          type="button"
-          onClick={async() => {
-          const auth = getAuth(app);
-          await signOut(auth);
-          toast.success("로그아웃 됐습니다.")
-        }}>
-        <MdOutlineLogout />
-          Logout
-        </button> )
-        }
+            <MdLogin />
+            Login
+          </button>
+        ) : (
+          <button
+            type="button"
+            onClick={async () => {
+              const auth = getAuth(app);
+              await signOut(auth);
+              toast.success("로그아웃 되었습니다.");
+            }}
+          >
+            <MdLogout />
+            Logout
+          </button>
+        )}
       </div>
     </div>
-  )
+  );
 }

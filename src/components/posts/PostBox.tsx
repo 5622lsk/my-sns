@@ -1,15 +1,15 @@
-import AuthContext from 'context/AuthContext';
-import { deleteDoc, doc } from 'firebase/firestore';
-import { db } from 'firebaseApp';
-import { PostProps } from 'pages/home/HomePage'
-import React, { useContext } from 'react'
-import { FaHeart, FaRegComment, FaUserCircle } from 'react-icons/fa'
-import { Link, useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify';
+import AuthContext from "context/AuthContext";
+import { deleteDoc, doc } from "firebase/firestore";
+import { db } from "firebaseApp";
+import { PostProps } from "pages/home/HomePage";
+import { useContext } from "react";
+import { AiFillHeart } from "react-icons/ai";
+import { FaRegComment, FaUserCircle } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
 
-
+import { toast } from "react-toastify";
 interface PostBoxProps {
-    post: PostProps;
+  post: PostProps;
 }
 
 export default function PostBox({ post }: PostBoxProps) {
@@ -61,24 +61,15 @@ export default function PostBox({ post }: PostBoxProps) {
           </>
         )}
 
-
-                <button 
-                type="button"
-                className='post__like' 
-                onClick={handleDelete}
-              >
-                <FaHeart />
-                {post?.likeCount || 0}
-              </button>
-              <button 
-                type="button"
-                className='post__comment' 
-                onClick={handleDelete}
-              >
-                <FaRegComment />
-                {post?.comment || 0}
-              </button>
-            </div>
-          </div>
-  )
+        <button type="button" className="post__likes">
+          <AiFillHeart />
+          {post?.likeCount || 0}
+        </button>
+        <button type="button" className="post__comments">
+          <FaRegComment />
+          {post?.comments?.length || 0}
+        </button>
+      </div>
+    </div>
+  );
 }

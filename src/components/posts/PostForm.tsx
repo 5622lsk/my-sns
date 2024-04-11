@@ -1,68 +1,71 @@
-import { useContext, useEffect, useState } from "react";
-import PostForm from "components/posts/PostForm";
-import PostBox from "components/posts/PostBox";
-
-import {
-  collection,
-  query,
-  where,
-  onSnapshot,
-  orderBy,
-} from "firebase/firestore";
-import AuthContext from "context/AuthContext";
+import { useContext, useState } from "react";
+import { collection, addDoc } from "firebase/firestore";
+import { FiImage } from "react-icons/fi";
 import { db } from "firebaseApp";
 
-export interface PostProps {
-  id: string;
-  email: string;
-  content: string;
-  createdAt: string;
-  uid: string;
-  profileUrl?: string;
-  likes?: string[];
-  likeCount?: number;
-  comments?: any;
-}
+import { toast } from "react-toastify";
+import AuthContext from "context/AuthContext";
 
-export default function HomePage() {
-  const [posts, setPosts] = useState<PostProps[]>([]);
+export default function PostForm() {
+  const [content, setContent] = useState<string>("");
   const { user } = useContext(AuthContext);
+  const handleFileUpload = () => {};
 
-  useEffect(() => {
-    if (user) {
-      let postsRef = collection(db, "posts");
-      let postsQuery = query(postsRef, orderBy("createdAt", "desc"));
+  const onSubmit = async (e: any) => {
+    e.preventDefault();
 
-      onSnapshot(postsQuery, (snapShot) => {
-        let dataObj = snapShot.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc?.id,
-        }));
-        setPosts(dataObj as PostProps[]);
+    try {
+      await addDoc(collection(db, "posts"), {
+        content: content,
+        createdAt: new Date()?.toLocaleDateString("ko", {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        }),
+        uid: user?.uid,
+        email: user?.email,
       });
+      setContent("");
+      toast.success("게시글을 생성했습니다.");
+    } catch (e: any) {
+      console.log(e);
     }
-  }, [user]);
+  };
+
+  const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const {
+      target: { name, value },
+    } = e;
+
+    if (name === "content") {
+      setContent(value);
+    }
+  };
 
   return (
-    <div className="home">
-      <div className="home__top">
-        <div className="home__title">Home</div>
-        <div className="home__tabs">
-          <div className="home__tab home__tab--active">For You</div>
-          <div className="home__tab">Following</div>
-        </div>
+    <form className="post-form" onSubmit={onSubmit}>
+      <textarea
+        className="post-form__textarea"
+        required
+        name="content"
+        id="content"
+        placeholder="What is happening?"
+        onChange={onChange}
+        value={content}
+      />
+      <div className="post-form__submit-area">
+        <label htmlFor="file-input" className="post-form__file">
+          <FiImage className="post-form__file-icon" />
+        </label>
+        <input
+          type="file"
+          name="file-input"
+          accept="image/*"
+          onChange={handleFileUpload}
+          className="hidden"
+        />
+        <input type="submit" value="Tweet" className="post-form__submit-btn" />
       </div>
-
-      <PostForm />
-      <div className="post">
-        {posts?.length > 0 ? (
-          posts?.map((post) => <PostBox post={post} key={post.id} />)
-        ) : (
-          <div className="post__no-posts">
-            <div className="post__text">게시글이 없습니다.</div>
-          </div>
-        )}
-      </div>
-    </div>
+    </form>
   );
 }
