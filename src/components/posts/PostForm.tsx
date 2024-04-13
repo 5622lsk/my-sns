@@ -64,7 +64,7 @@ export default function PostForm() {
           onChange={handleFileUpload}
           className="hidden"
         />
-        <input type="submit" value="Tweet" className="post-form__submit-btn" />
+        <input type="submit" value="post" className="post-form__submit-btn" />
       </div>
     </form>
   );

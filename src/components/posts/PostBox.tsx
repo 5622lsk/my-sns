@@ -6,8 +6,9 @@ import { useContext } from "react";
 import { AiFillHeart } from "react-icons/ai";
 import { FaRegComment, FaUserCircle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-
 import { toast } from "react-toastify";
+
+
 interface PostBoxProps {
   post: PostProps;
 }
