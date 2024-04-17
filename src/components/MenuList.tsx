@@ -1,5 +1,6 @@
 import { BsHouse } from "react-icons/bs";
 import { BiUserCircle } from "react-icons/bi";
+import { FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { MdLogout, MdLogin } from "react-icons/md";
 import { useContext } from "react";
@@ -22,6 +23,10 @@ export default function MenuList() {
         <button type="button" onClick={() => navigate("/profile")}>
           <BiUserCircle />
           Profile
+        </button>
+        <button type="button" onClick={() => navigate("/search")}>
+          <FaSearch />
+          Search
         </button>
         {user === null ? (
           <button type="button" onClick={() => navigate("/users/login")}>

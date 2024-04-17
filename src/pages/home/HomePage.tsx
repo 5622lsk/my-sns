@@ -1,8 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-
 import PostForm from "components/posts/PostForm";
 import PostBox from "components/posts/PostBox";
-
 import {
   collection,
   query,
