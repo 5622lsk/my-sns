@@ -1,21 +1,27 @@
-import PostBox from 'components/posts/PostBox'
-import AuthContext from 'context/AuthContext';
-import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestore';
-import { db } from 'firebaseApp';
-import { PostProps } from 'pages/home/HomePage';
-import React, { useContext, useEffect, useState } from 'react'
+import PostBox from "components/posts/PostBox";
+import AuthContext from "context/AuthContext";
+import {
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  where,
+} from "firebase/firestore";
+import { db } from "firebaseApp";
+import { PostProps } from "pages/home/HomePage";
+import React, { useContext, useEffect, useState } from "react";
 
 export default function SearchPage() {
   const [posts, setPosts] = useState<PostProps[]>([]);
   const [tagQuery, setTagQuery] = useState<string>("");
-  const {user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   const onChange = (e: any) => {
     setTagQuery(e?.target?.value?.trim());
   };
 
   useEffect(() => {
-    if(user){
+    if (user) {
       let postsRef = collection(db, "posts");
       let postsQuery = query(
         postsRef,
@@ -24,7 +30,7 @@ export default function SearchPage() {
       );
 
       onSnapshot(postsQuery, (snapShot) => {
-        let dataObj = snapShot?.docs?.map((doc)=>({
+        let dataObj = snapShot?.docs?.map((doc) => ({
           ...doc?.data(),
           id: doc?.id,
         }));
@@ -32,17 +38,20 @@ export default function SearchPage() {
         setPosts(dataObj as PostProps[]);
       });
     }
-  },[tagQuery, user]);
-
+  }, [tagQuery, user]);
 
   return (
-    <div className='home'>
-      <div className='home__top'>
-        <div className='home__title'>
-          <div className='home__title-text'>Search</div>
+    <div className="home">
+      <div className="home__top">
+        <div className="home__title">
+          <div className="home__title-text">Search</div>
         </div>
-        <div className='home__search-div'>
-          <input className='home__search' placeholder='해시태그 검색' onChange={onChange} />
+        <div className="home__search-div">
+          <input
+            className="home__search"
+            placeholder="해시태그 검색"
+            onChange={onChange}
+          />
         </div>
       </div>
       <div className="post">
@@ -55,5 +64,5 @@ export default function SearchPage() {
         )}
       </div>
     </div>
-  )
+  );
 }
