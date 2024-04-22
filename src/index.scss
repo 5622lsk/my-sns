@@ -41,6 +41,10 @@ body {
   font-weight: 600;
   border: none;
   cursor: pointer;
+
+  &:disabled {
+    opacity: 0.5; //버튼 꾸욱 그림자
+  }
 }
 
 .transparent {
