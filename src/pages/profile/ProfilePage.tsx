@@ -63,8 +63,8 @@ export default function ProfilePage() {
           <div className="profile__email">{user?.email || ""}</div>
         </div>
         <div className="home__tabs">
-          <div className="home__tab home__tab--active">My Posts</div>
-          <div className="home__tab">Likes</div>
+          <div className="home__tab home__tab--active">나의 게시글</div>
+          <div className="home__tab">저장한 게시글</div>
         </div>
         <div className="post">
           {posts?.length > 0 ? (

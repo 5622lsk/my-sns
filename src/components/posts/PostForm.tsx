@@ -108,7 +108,7 @@ export default function PostForm() {
         required
         name="content"
         id="content"
-        placeholder="What is happening?"
+        placeholder="게시글을 작성해주세요."
         onChange={onChange}
         value={content}
       />

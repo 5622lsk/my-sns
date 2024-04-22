@@ -124,7 +124,7 @@ export default function ProfileEdit() {
                 type="button"
                 onClick={handleDeleteImage}
               >
-                Delete
+                삭제
               </button>
             </div>
           )}
@@ -144,7 +144,7 @@ export default function ProfileEdit() {
             />
             <input
               type="submit"
-              value="Edit Profile"
+              value="프로필 수정"
               className="post-form__submit-btn"
             />
           </div>
