@@ -10,11 +10,9 @@ $gray: #6b7280;
 $grayDark: #484d56;
 $activeBg: #3c495f5f;
 $backgroundLight: #263340;
- 
 
-$font: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-       'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-       sans-serif;
+$font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 
 //전체 레이아웃
 body {
@@ -23,11 +21,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-*{
+* {
   background-color: $background;
   color: $white;
 }
-.layout{
+.layout {
   max-width: 600px;
   margin: 0 auto;
   position: relative;
@@ -36,7 +34,7 @@ body {
 }
 
 .button {
-  padding:0.2rem 0.8rem;
+  padding: 0.2rem 0.8rem;
   border-radius: 20px;
   font-size: 12px;
   line-height: 1.25rem;
@@ -59,7 +57,7 @@ body {
 }
 
 //MenuList
-.footer{
+.footer {
   position: fixed; //메뉴바 화면에 고정시킴
   right: 0;
   left: 0;
@@ -71,11 +69,11 @@ body {
   background: transparent;
   color: $white;
 
-  &__grid{
+  &__grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
 
-    button{
+    button {
       border: none;
       display: flex;
       gap: 8px;
@@ -86,13 +84,10 @@ body {
       backdrop-filter: blur(1px);
     }
   }
-
 }
-
 
 //home 레이아웃
 .home {
-
   &__search-div {
     display: flex;
     justify-content: center;
@@ -118,7 +113,7 @@ body {
     @extend .transparent;
     @extend .sticky;
   }
-  &__title{
+  &__title {
     background-color: transparent;
     width: 100%;
     padding: 16px;
@@ -126,19 +121,19 @@ body {
     font-size: 20px;
   }
 
-  &__tabs{
+  &__tabs {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(2, minmax(0,1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     background-color: transparent;
   }
 
-  &__tab{
+  &__tab {
     background-color: transparent;
     text-align: center;
     font-weight: 500;
     padding: 16px;
-    cursor:pointer;
+    cursor: pointer;
 
     &--active {
       font-weight: 700;
@@ -153,6 +148,21 @@ body {
 }
 
 .post-form {
+  &__profile {
+    padding: 16px;
+
+    .post-form__input {
+      border-bottom: 1px solid $gray;
+      padding: 8px 2px;
+      font-size: 16px;
+      width: 100%;
+      margin-bottom: 20px;
+
+      &:active {
+        border-bottom: 1px solid $white;
+      }
+    }
+  }
   &__image-area {
     display: flex;
     align-items: center;
@@ -189,14 +199,14 @@ body {
     padding: 16px;
     border-bottom: 1px solid $border;
 
-    &-outputs{
+    &-outputs {
       display: flex;
       flex-wrap: wrap;
       gap: 8px 1px;
       align-items: center;
     }
 
-    &-tag{
+    &-tag {
       font-size: 14px;
       border: 1px solid $primaryColor;
       color: $primaryColor;
@@ -205,7 +215,7 @@ body {
       margin-right: 6px;
       cursor: pointer;
 
-      &:hover{
+      &:hover {
         color: $activeBorder;
         border: 1px solid $activeBorder;
       }
@@ -218,7 +228,7 @@ body {
     width: calc(100% - 32px);
     padding: 16px;
     border: none;
-    resize:none;
+    resize: none;
     font-size: 20px;
     border-bottom: $border;
 
@@ -236,14 +246,14 @@ body {
     border-bottom: 1px solid $border;
     align-items: center;
 
-    &__file{
+    &__file {
       display: flex;
       padding: 0.1rem;
       flex-direction: column;
       justify-content: center;
-      cursor:pointer;
+      cursor: pointer;
 
-      &-icon{
+      &-icon {
         width: 30px;
         height: 30px;
         align-items: center;
@@ -264,12 +274,11 @@ body {
 
 // post 레이아읏
 .post {
-
   &__image-div {
     padding: 16px;
   }
 
-  &__header{
+  &__header {
     button {
       border: none;
       padding: 16px;
@@ -286,7 +295,7 @@ body {
     padding: 16px;
 
     .post__text {
-      font-size:14px;
+      font-size: 14px;
       border: 1px solid $gray;
       padding: 16px;
       border-radius: 4px;
@@ -294,91 +303,92 @@ body {
   }
   padding-bottom: 40px;
 
-  &__flex{
+  &__flex {
     display: flex;
     gap: 4px;
-    align-items:center;
+    align-items: center;
   }
 
   &__email,
   &__createdAt {
     font-size: 12px;
-    color:$grayText;
+    color: $grayText;
   }
 
-  &__box{
+  &__box {
     padding: 10px 0px;
     border-bottom: $border;
 
-      a {
-        text-decoration: none;
+    a {
+      text-decoration: none;
+    }
+
+    &-profile {
+      text-decoration: none;
+      padding: 0 10px;
+
+      &-img,
+      &-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
       }
-    
-      &-profile {
-        text-decoration: none;
-        padding: 0 10px;
+    }
 
-        &-img, &-icon {
-          width: 40px;
-          height: 40px;
-          border-radius:50%;
-          margin-right:10px;
-        }
-      }
+    &-content {
+      display: block;
+      font-weight: 500;
+      padding: 16px 4px;
+    }
 
-      &-content{
-        display: block;
-        font-weight: 500;
-        padding: 16px 4px;
-      }
+    &-footer {
+      padding: 0 16px;
+      margin-top: 10px;
+      padding-bottom: 10px;
+      font-size: 14px;
+      display: flex;
+      gap: 8px;
+      flex-direction: row-reverse;
+      // border-bottom: $border;
 
-      &-footer{
-        padding:0 16px;
-        margin-top: 10px;
-        padding-bottom: 10px;
-        font-size:14px;
-        display: flex;
-        gap: 8px;
-        flex-direction: row-reverse;
-        // border-bottom: $border;
+      button {
+        @extend.button;
 
-        button {
-          @extend.button;
+        &.post__delete {
+          background-color: $danger;
 
-          &.post__delete{
-            background-color: $danger;
-
-            &:hover{
-              background-color: $danger-hover;
-            }
+          &:hover {
+            background-color: $danger-hover;
           }
+        }
 
-          &.post__edit{
-            background-color: $gray;
+        &.post__edit {
+          background-color: $gray;
 
-            a{
-              background-color: transparent;
+          a {
+            background-color: transparent;
 
-              &:hover{
-                background-color: $grayDark;
-              }
-            }
-
-            &:hover{
+            &:hover {
               background-color: $grayDark;
             }
           }
 
-          &.post__like,
-          &.post__comment{
-            @extend .post__flex;
+          &:hover {
+            background-color: $grayDark;
+          }
+        }
 
-            &:hover{
-              color: $gray;
-            }
+        &.post__like,
+        &.post__comment {
+          @extend .post__flex;
+
+          &:hover {
+            color: $gray;
           }
         }
       }
+    }
   }
 }
 
@@ -414,7 +424,7 @@ body {
     margin-top: 20px;
   }
 
-  &__btn--submit{
+  &__btn--submit {
     @extend .button;
     width: 100%;
     height: 48px;
@@ -426,12 +436,12 @@ body {
     font-size: 16px;
     background-color: $primaryColor;
 
-    &:hover{
+    &:hover {
       background-color: $activeBorder;
     }
   }
 
-  &__title{
+  &__title {
     text-align: center;
     font-size: 24px;
     font-weight: 700;
@@ -443,7 +453,7 @@ body {
     text-decoration: none;
     color: $grayText;
 
-    &:hover{
+    &:hover {
       color: $gray;
     }
   }
@@ -457,7 +467,7 @@ body {
     background-color: $white;
     color: $activeBorder;
 
-    &:hover{
+    &:hover {
       background-color: $primaryColor;
       color: $white;
     }
@@ -467,9 +477,52 @@ body {
     background-color: black;
     color: $white;
 
-    &:hover{
+    &:hover {
       background-color: $activeBg;
       color: $white;
     }
+  }
+}
+
+//프로필 레이아웃
+.profile {
+  display: flex;
+  padding: 0 1rem;
+  margin-top: 2.5rem;
+  justify-content: space-between;
+  align-items: center;
+
+  &__image {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+  }
+
+  &__btn {
+    @extend .button;
+    background-color: $primaryColor;
+
+    &:hover {
+      background-color: $activeBorder;
+    }
+  }
+
+  &__text {
+    padding: 0 1rem;
+    margin-top: 20px;
+  }
+
+  &__name {
+    font-size: 16px;
+    color: $white;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  &__email {
+    font-size: 14px;
+    color: $grayText;
+    font-weight: 700;
+    margin-bottom: 4px;
   }
 }
