@@ -21,7 +21,7 @@ export default function CommentBox({ data, post }: CommentBoxProps) {
   const handleDeleteComment = async () => {
     if (post) {
       try {
-        const postRef = doc(db, "posts", post?.id);
+        const postRef = doc(db, "posts", post?.id); //posts 컬렉션의 특정 문서를 참조
         await updateDoc(postRef, {
           comments: arrayRemove(data),
         });

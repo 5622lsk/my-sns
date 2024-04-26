@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import { PostProps } from "pages/home/HomePage";
-import { onChange } from "react-toastify/dist/core/store";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { db } from "firebaseApp";
 import AuthContext from "context/AuthContext";
