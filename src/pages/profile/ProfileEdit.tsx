@@ -9,6 +9,7 @@ import {
   uploadString,
 } from "firebase/storage";
 import { storage } from "firebaseApp";
+import useTranslation from "hooks/useTranslation";
 import React, { useContext, useEffect, useState } from "react";
 import { FiImage } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
@@ -20,6 +21,7 @@ export default function ProfileEdit() {
   const [imageUrl, setImageUrl] = useState<string | null>("");
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+  const t = useTranslation();
 
   const STORAGE_DOWNLOAD_URL_STR = "https://firebasestorage.googleapis.com";
 
@@ -124,7 +126,7 @@ export default function ProfileEdit() {
                 type="button"
                 onClick={handleDeleteImage}
               >
-                삭제
+                {t("BUTTON_DELETE")}
               </button>
             </div>
           )}

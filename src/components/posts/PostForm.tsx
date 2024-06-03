@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import AuthContext from "context/AuthContext";
 import { v4 as uuidv4 } from "uuid";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
+import useTranslation from "hooks/useTranslation";
 
 export default function PostForm() {
   const [content, setContent] = useState<string>("");
@@ -15,6 +16,7 @@ export default function PostForm() {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [tags, setTags] = useState<string[]>(["태그", "태그2", "태그3"]); //성공적으로 저장한 태그들
   const { user } = useContext(AuthContext);
+  const t = useTranslation();
 
   const handleFileUpload = (e: any) => {
     const {
@@ -108,7 +110,7 @@ export default function PostForm() {
         required
         name="content"
         id="content"
-        placeholder="게시글을 작성해주세요."
+        placeholder={t("POST_PLACEHOLDER")}
         onChange={onChange}
         value={content}
       />
@@ -128,10 +130,10 @@ export default function PostForm() {
           className="post-form__input"
           name="hashtag"
           id="hashtag"
-          placeholder="해시태그 + 스페이스바 입력"
+          placeholder={t("POST_HASHTAG")}
           onChange={onChangeHashTag}
-          onKeyUp={handleKeyUp} //키보드의 키를 놓았을 때 발생하는 이벤트
-          value={hashTag} //지금현재 입력하고있는 해쉬태그 상태
+          onKeyUp={handleKeyUp}
+          value={hashTag}
         />
       </div>
       <div className="post-form__submit-area">
@@ -155,14 +157,14 @@ export default function PostForm() {
                 type="button"
                 onClick={handleDeleteImage}
               >
-                이미지 삭제
+                {t("BUTTON_DELETE")}
               </button>
             </div>
           )}
         </div>
         <input
           type="submit"
-          value="post"
+          value="Tweet"
           className="post-form__submit-btn"
           disabled={isSubmitting}
         />
