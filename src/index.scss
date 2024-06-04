@@ -1,18 +1,4 @@
-$background: #1e293b;
-$white: #ffffff;
-$border: 1px solid #708090;
-$primaryColor: #60a5fa;
-$grayText: #9ca3af;
-$activeBorder: #3b82f6;
-$danger: #dc2626;
-$danger-hover: #b92121;
-$gray: #6b7280;
-$grayDark: #484d56;
-$activeBg: #3c495f5f;
-$backgroundLight: #263340;
-
-$font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-  "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+@import "./utils.scss";
 
 //전체 레이아웃
 body {
@@ -76,6 +62,11 @@ body {
   &__grid {
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
+    background-color: transparent;
+
+    &--text {
+      background-color: transparent;
+    }
 
     button {
       border: none;
@@ -86,7 +77,51 @@ body {
       font-size: 15px;
       padding: 16px 0px;
       backdrop-filter: blur(1px);
+
+      svg {
+        backdrop-filter: blur(10px);
+        background-color: transparent;
+      }
     }
+  }
+}
+@include xsMobile {
+  .footer {
+    display: none;
+  }
+
+  .layout {
+    border: none;
+  }
+}
+@include mobile {
+  .footer {
+    &__grid {
+      &--text {
+        display: none;
+      }
+      button {
+        font-size: 20px;
+      }
+    }
+  }
+  .layout {
+    border: none;
+  }
+}
+@include tablet {
+  .footer {
+    &__grid {
+      &--text {
+        display: none;
+      }
+      button {
+        font-size: 24px;
+      }
+    }
+  }
+  .layout {
+    border: none;
   }
 }
 
